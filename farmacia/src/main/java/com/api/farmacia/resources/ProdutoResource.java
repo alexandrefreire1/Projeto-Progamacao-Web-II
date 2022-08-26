@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
 
 import com.api.farmacia.produtos.models.Produto;
 
-
+//permite que recursos restritos seja recuperados por outros domínios.
 @CrossOrigin(origins="*")
 //Essa é a classe que vai receber as requisições http 
 @RestController
@@ -54,9 +54,7 @@ public class ProdutoResource {
 	@PostMapping("/produto")
 	@ApiOperation(value = "Cria novos produtos farmaceuticos")
 	public Produto salvaProduto(@RequestBody @Valid Produto produto) {
-		var produtoModel = new Produto();
-		BeanUtils.copyProperties(produto, produtoModel);
-		return produtoRepository.save(produtoModel);
+		return produtoRepository.save(produto);
 	}
 	
 	@DeleteMapping("/produto")
