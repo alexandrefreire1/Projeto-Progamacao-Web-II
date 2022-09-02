@@ -3,6 +3,7 @@ package com.api.farmacia.produtos.models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,16 +19,22 @@ public class Produto implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) //Indicando que o banco irá criar de forma automática id.
+	@Column(name="id")
 	private long id;
 	
+	@Column(name="nome")
 	private String nome;
 	
+	@Column(name="descricao")
 	private String descricao;
 	
+	@Column(name="quantidade")
 	private BigDecimal quantidade;
 	
+	@Column(name="valor")
 	private BigDecimal valor;
 	
+	@Column(name="tipo")
 	private String tipo;
 
 	public long getId() {

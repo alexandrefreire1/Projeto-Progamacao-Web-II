@@ -8,6 +8,5 @@ import com.api.farmacia.produtos.models.Produto;
 //save, delete, já vem prontos.
 public interface ProdutoRepository  extends JpaRepository<Produto, Long>{
 	
-	
 	Produto findById(long id);
 }

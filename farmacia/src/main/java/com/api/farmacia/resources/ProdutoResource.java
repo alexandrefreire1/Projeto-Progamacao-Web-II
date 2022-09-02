@@ -1,6 +1,5 @@
 package com.api.farmacia.resources;
 
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,6 +21,7 @@ import com.api.farmacia.repository.ProdutoRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import com.api.farmacia.dtos.ProdutoDto;
 import com.api.farmacia.produtos.models.Produto;
 
 //permite que recursos restritos seja recuperados por outros domínios.
@@ -41,31 +41,41 @@ public class ProdutoResource {
 	
 	@GetMapping("/produtos")
 	@ApiOperation(value = "retorna uma lista de produtos farmaceuticos")
-	public List<Produto> listaProdutos(){
+	public List<Produto> listaProdutos(@RequestBody @Valid ProdutoDto produtoDto){
+		var produto = new Produto();
+		BeanUtils.copyProperties(produtoDto, produto);
 		return produtoRepository.findAll();
 	}
 	
 	@GetMapping("/produto/{id}")
 	@ApiOperation(value = "Retorna um produto específico a partir do Id")
-	public Produto listaProdutoUnico(@PathVariable(value = "id") long id){
+	public Produto listaProdutoUnico(@PathVariable(value = "id") long id, @RequestBody @Valid ProdutoDto produtoDto){
+		var produto = new Produto();
+		BeanUtils.copyProperties(produtoDto, produto);
 		return produtoRepository.findById(id);
 	}
 	
 	@PostMapping("/produto")
 	@ApiOperation(value = "Cria novos produtos farmaceuticos")
-	public Produto salvaProduto(@RequestBody @Valid Produto produto) {
+	public Produto salvaProduto(@RequestBody @Valid Produto produto, ProdutoDto produtoDto) {
+		var produto1 = new Produto();
+		BeanUtils.copyProperties(produtoDto, produto1);
 		return produtoRepository.save(produto);
 	}
 	
 	@DeleteMapping("/produto")
 	@ApiOperation(value ="Deleta Produtos Farcameuticos a partir do Id")
-	public void deletaProduto(@RequestBody Produto produto) {
+	public void deletaProduto(@RequestBody @Valid Produto produto, ProdutoDto produtoDto) {
+		var produto2 = new Produto();
+		BeanUtils.copyProperties(produtoDto, produto2);
 		produtoRepository.delete(produto);
 	}
 	
 	@PutMapping("/produto")
 	@ApiOperation(value = "Atualiza Produto Farmaceutico a partir do Id")
-	public Produto atualizaProduto(@RequestBody Produto produto) {
+	public Produto atualizaProduto(@RequestBody @Valid Produto produto, ProdutoDto produtoDto) {
+		var produto3 = new Produto();
+		BeanUtils.copyProperties(produtoDto, produto3);
 		return produtoRepository.save(produto);
 	}
 }
